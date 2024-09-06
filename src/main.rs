@@ -1,5 +1,6 @@
 use eframe::egui;
 use eframe::App;
+use egui::Color32;
 use egui::TextureHandle;
 use egui::ViewportCommand;
 use image::load_from_memory;
@@ -53,17 +54,36 @@ impl App for Kwartz {
                 .inner_margin(egui::vec2(-5., 1.))
                 .show(ui, |ui| {
                     ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
-                        if let Some(close_icon) = &self.close_icon {
-                            if ui.add(egui::ImageButton::new(close_icon)).clicked() {
-                                ui.ctx().send_viewport_cmd(egui::ViewportCommand::Close);
-                            }
-                        }
+                        ui.scope(|ui| {
+                            // remove margin between window control buttons
+                            let mut style: egui::Style = (*ctx.style()).clone();
+                            style.spacing.item_spacing = egui::vec2(2., 0.);
+                            ctx.set_style(style);
 
-                        if let Some(minimize_icon) = &self.minimize_icon {
-                            if ui.add(egui::ImageButton::new(minimize_icon)).clicked() {
-                                ui.ctx().send_viewport_cmd(ViewportCommand::Minimized(true));
+                            ui.style_mut().visuals.widgets.inactive.weak_bg_fill =
+                                Color32::TRANSPARENT;
+
+                            if let Some(close_icon) = &self.close_icon {
+                                ui.scope(|ui| {
+                                    ui.style_mut().visuals.widgets.hovered.weak_bg_fill =
+                                        Color32::RED;
+                                    ui.style_mut().visuals.widgets.active.weak_bg_fill =
+                                        Color32::DARK_RED;
+
+                                    let close = ui.add(egui::ImageButton::new(close_icon));
+                                    if close.clicked() {
+                                        ui.ctx().send_viewport_cmd(egui::ViewportCommand::Close);
+                                    }
+                                });
                             }
-                        }
+
+                            if let Some(minimize_icon) = &self.minimize_icon {
+                                let minimize = ui.add(egui::ImageButton::new(minimize_icon));
+                                if minimize.clicked() {
+                                    ui.ctx().send_viewport_cmd(ViewportCommand::Minimized(true));
+                                }
+                            }
+                        });
                     });
 
                     let response =
