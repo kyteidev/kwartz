@@ -1,0 +1,10 @@
+[package]
+name = "kwartz"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+eframe = "0.28.1"
+egui = "0.28.1"
+env_logger = "0.11.5"
+image = "0.25.2"
