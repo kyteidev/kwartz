@@ -65,6 +65,12 @@ impl App for Kwartz {
                             }
                         }
                     });
+
+                    let response =
+                        ui.interact(ui.min_rect(), ui.id(), egui::Sense::click_and_drag());
+                    if response.dragged() {
+                        ui.ctx().send_viewport_cmd(ViewportCommand::StartDrag);
+                    }
                 });
         });
 
