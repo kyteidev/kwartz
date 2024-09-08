@@ -11,7 +11,7 @@ struct Kwartz {
 }
 
 impl Kwartz {
-    fn load_and_resize_image(ctx: &egui::Context, bytes: &[u8], size: (u32, u32)) -> TextureHandle {
+    fn load_resized_image(ctx: &egui::Context, bytes: &[u8], size: (u32, u32)) -> TextureHandle {
         let image = load_from_memory(bytes).expect("Failed to load image");
 
         let resized = image.resize_exact(size.0, size.1, image::imageops::FilterType::Lanczos3);
@@ -28,7 +28,7 @@ impl Kwartz {
 
     fn load_icons(&mut self, ctx: &egui::Context) {
         if self.close_icon.is_none() {
-            self.close_icon = Some(Self::load_and_resize_image(
+            self.close_icon = Some(Self::load_resized_image(
                 ctx,
                 include_bytes!("../assets/close.png"),
                 (24, 24),
@@ -36,7 +36,7 @@ impl Kwartz {
         }
 
         if self.minimize_icon.is_none() {
-            self.minimize_icon = Some(Self::load_and_resize_image(
+            self.minimize_icon = Some(Self::load_resized_image(
                 ctx,
                 include_bytes!("../assets/minimize.png"),
                 (24, 24),
