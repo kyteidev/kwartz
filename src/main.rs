@@ -5,12 +5,14 @@ use eframe::egui;
 use eframe::App;
 use egui::TextureHandle;
 
+use modules::textarea::TextArea;
 use modules::title_bar::draw_title_bar;
 use utils::load_resized_image;
 
 struct Kwartz {
     close_icon: Option<TextureHandle>,
     minimize_icon: Option<TextureHandle>,
+    textarea: TextArea,
 }
 
 impl Kwartz {
@@ -40,7 +42,7 @@ impl App for Kwartz {
         draw_title_bar(ctx, self);
 
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.label("Hello World");
+            self.textarea.show(ui, ctx);
         });
     }
 }
@@ -61,6 +63,7 @@ fn main() -> Result<(), eframe::Error> {
             Ok(Box::new(Kwartz {
                 close_icon: None,
                 minimize_icon: None,
+                textarea: TextArea::new(),
             }))
         }),
     )
