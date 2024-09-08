@@ -11,7 +11,7 @@ pub fn draw_title_bar(ctx: &Context, kwartz: &Kwartz) {
                     ui.scope(|ui| {
                         // remove margin between window control buttons
                         let mut style: egui::Style = (*ctx.style()).clone();
-                        style.spacing.item_spacing = egui::vec2(2., 0.);
+                        style.spacing.item_spacing = egui::vec2(3., 0.);
                         ctx.set_style(style);
 
                         ui.style_mut().visuals.widgets.inactive.weak_bg_fill = Color32::TRANSPARENT;
