@@ -12,6 +12,7 @@ use utils::load_resized_image;
 struct Kwartz {
     close_icon: Option<TextureHandle>,
     minimize_icon: Option<TextureHandle>,
+
     textarea: TextArea,
 }
 
@@ -63,6 +64,7 @@ fn main() -> Result<(), eframe::Error> {
             Ok(Box::new(Kwartz {
                 close_icon: None,
                 minimize_icon: None,
+
                 textarea: TextArea::new(),
             }))
         }),
