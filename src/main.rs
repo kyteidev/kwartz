@@ -3,6 +3,7 @@ mod utils;
 
 use eframe::egui;
 use eframe::App;
+use egui::ScrollArea;
 use egui::TextureHandle;
 
 use modules::textarea::TextArea;
@@ -43,7 +44,9 @@ impl App for Kwartz {
         draw_title_bar(ctx, self);
 
         egui::CentralPanel::default().show(ctx, |ui| {
-            self.textarea.show(ui, ctx);
+            ScrollArea::both().show(ui, |ui| {
+                self.textarea.show(ui, ctx);
+            });
         });
     }
 }
