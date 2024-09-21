@@ -9,7 +9,12 @@ use super::menu::menu::create_menu;
 pub fn draw_title_bar(ctx: &Context, kwartz: &mut Kwartz) {
     egui::TopBottomPanel::top("title_bar").show(ctx, |ui| {
         ui.with_layout(Layout::left_to_right(Align::Center), |ui| {
-            create_menu(ui, &mut kwartz.textarea);
+            egui::Frame::none()
+                .inner_margin(egui::vec2(-5., 0.))
+                .show(ui, |ui| {
+                    create_menu(ui, kwartz);
+                });
+
             egui::Frame::none()
                 .inner_margin(egui::vec2(-5., 1.))
                 .show(ui, |ui| {

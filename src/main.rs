@@ -13,6 +13,7 @@ use utils::load_resized_image;
 struct Kwartz {
     close_icon: Option<TextureHandle>,
     minimize_icon: Option<TextureHandle>,
+    menu_icon: Option<TextureHandle>,
 
     textarea: TextArea,
 }
@@ -31,6 +32,14 @@ impl Kwartz {
             self.minimize_icon = Some(load_resized_image(
                 ctx,
                 include_bytes!("../assets/minimize.png"),
+                (24, 24),
+            ));
+        }
+
+        if self.menu_icon.is_none() {
+            self.menu_icon = Some(load_resized_image(
+                ctx,
+                include_bytes!("../assets/menu.png"),
                 (24, 24),
             ));
         }
@@ -67,6 +76,7 @@ fn main() -> Result<(), eframe::Error> {
             Ok(Box::new(Kwartz {
                 close_icon: None,
                 minimize_icon: None,
+                menu_icon: None,
 
                 textarea: TextArea::new(),
             }))
