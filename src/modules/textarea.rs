@@ -14,6 +14,10 @@ impl TextArea {
         }
     }
 
+    pub fn replace_content(&mut self, content: String) {
+        self.content = content;
+    }
+
     pub fn show(&mut self, ui: &mut egui::Ui, ctx: &egui::Context) {
         // style textarea
         let mut style = (*ctx.style()).clone();
