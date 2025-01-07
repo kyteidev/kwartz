@@ -27,7 +27,7 @@ impl TextArea {
         let textarea_id = Id::new("textarea");
 
         let mut textarea = TextEdit::multiline(&mut self.content);
-        textarea = textarea.frame(false).code_editor();
+        textarea = textarea.frame(false).code_editor().clip_text(false);
 
         // auto focus on textarea, so user knows they can type there
         if !self.focused {
