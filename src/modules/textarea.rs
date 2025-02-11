@@ -27,7 +27,11 @@ impl TextArea {
         let textarea_id = Id::new("textarea");
 
         let mut textarea = TextEdit::multiline(&mut self.content);
-        textarea = textarea.frame(false).code_editor().clip_text(false);
+        textarea = textarea
+            .frame(false)
+            .code_editor()
+            .clip_text(false)
+            .desired_width(f32::INFINITY);
 
         // auto focus on textarea, so user knows they can type there
         if !self.focused {
@@ -35,6 +39,6 @@ impl TextArea {
             self.focused = true;
         }
 
-        ui.add_sized(ui.available_size(), textarea.id(textarea_id));
+        ui.add(textarea.id(textarea_id));
     }
 }
